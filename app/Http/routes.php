@@ -27,4 +27,5 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'RegisterController@index']);
     Route::post('/register/store', ['as' => 'register.store', 'uses' => 'RegisterController@postStore']);
     Route::get('/data/cities', ['as' => 'data.cities', 'uses' => 'LocationController@getAjaxCities']);
+    Route::get('/admin/pendaftar', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
 });

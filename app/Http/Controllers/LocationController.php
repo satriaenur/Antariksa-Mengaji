@@ -26,4 +26,7 @@ class LocationController extends Controller
             ->toArray();
         return response()->json($cities);
     }
+
+
+
 }
