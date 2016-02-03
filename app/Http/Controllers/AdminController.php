@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Pendaftar;
 use App\Http\Requests;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
     public function __construct(Pendaftar $pendaftar)
     {
+        $this->middleware('auth');
         $this->pendaftar = $pendaftar;
     }
 
@@ -36,6 +39,26 @@ class AdminController extends Controller
 
     public function exportRekap()
     {
-        
+        $date = date("d-m-Y");
+        $param['title'] = "Rekap Pendaftar Antariksa";
+        $file_name = "Rekap Pendaftar Antariksa - {$date}";
+
+        return Excel::create($file_name, function($excel) use ($param) {
+            $excel->setTitle($param['title']);
+            $excel->sheet('New sheet', function($sheet) use ($param) {
+                $sheet->setAllBorders('thin');
+                $sheet->setPageMargin(0.25);
+
+                $data['pendaftar'] = Pendaftar::all();
+
+                $sheet->loadView('export.rekap')->with($data);
+            });
+        })->export('xls');
+    }
+
+    public function testExport()
+    {
+        $data['pendaftar'] = Pendaftar::all();
+        return view('export.rekap')->with($data);
     }
 }

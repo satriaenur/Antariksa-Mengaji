@@ -23,9 +23,18 @@ define('MSG_DANGER', 'msg_danger');
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    Route::get('/', ['as' => 'home', 'uses' => 'RegisterController@index']);
-    Route::post('/register/store', ['as' => 'register.store', 'uses' => 'RegisterController@postStore']);
-    Route::get('/data/cities', ['as' => 'data.cities', 'uses' => 'LocationController@getAjaxCities']);
-    Route::get('/admin/pendaftar', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
+$this::group(['middleware' => ['web']], function () {
+    #Authentication Routes...
+    $this->get('login', ['as' => 'auth.login', 'uses' => 'Auth\AuthController@showLoginForm']);
+    $this->post('login', ['as' => 'auth.login.post', 'uses' => 'Auth\AuthController@login']);
+    $this->get('logout', ['as' => 'auth.logout', 'uses' => 'Auth\AuthController@logout']);
+
+    $this->get('/home', ['as' => 'home.index', 'uses'=>'HomeController@index']);
+
+    $this->get('/', ['as' => 'home', 'uses' => 'RegisterController@index']);
+    $this->post('/register/store', ['as' => 'register.store', 'uses' => 'RegisterController@postStore']);
+    $this->get('/data/cities', ['as' => 'data.cities', 'uses' => 'LocationController@getAjaxCities']);
+    $this->get('/admin/pendaftar', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
+    $this->get('/admin/pendaftar/export', ['as' => 'admin.pendaftar.export', 'uses' => 'AdminController@exportRekap']);
+    $this->get('/test/export', ['as' => 'test.export', 'uses' => 'AdminController@testExport']);
 });

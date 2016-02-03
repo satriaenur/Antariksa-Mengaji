@@ -8,7 +8,6 @@
     table {  border-collapse: collapse;  }
     .title { text-align: left;}
 </style>
-
 <body>
 <table>
     <tr>
@@ -47,9 +46,9 @@
     </tr>
     </thead>
     <tbody>
-        @foreach($pendaftar as $user)
+        @foreach($pendaftar as $i => $user)
             <tr>
-                <td>{{$i++}}</td>
+                <td>{{$i+1}}</td>
                 <td>{{$user->full_name}}</td>
                 <td>{{$user->call_name}}</td>
                 <td>{{$user->birthdate}}</td>

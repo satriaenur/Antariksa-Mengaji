@@ -45,7 +45,7 @@
                     <i class="fa fa-user"></i>
                     <h3 class="box-title">Data Pendaftar</h3>
                     <div class="pull-right box-tools">
-                        <a href="#" onClick="oTable.fnReloadAjax()" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i></a>
+                        <a href="{{route('admin.pendaftar.export')}}" class="btn btn-primary btn-sm"><i class="fa fa-download"></i> Export</a>
                     </div>
                 </div>
                 <div class="box-body">

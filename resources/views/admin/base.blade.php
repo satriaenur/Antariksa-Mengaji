@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>101 Salad</title>
+    <title>Antariksa</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -20,9 +20,6 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="{{asset('bower_components/AdminLTE/plugins/iCheck/square/blue.css')}}">
     <link rel="stylesheet" href="{{asset('css/custom_style.css')}}">
-    <!-- Cropper -->
-    <link rel="stylesheet" href="{{asset('bower_components/cropper/dist/cropper.css')}}">
-    <link rel="stylesheet" href="{{asset('/bower_components/cropper/main.css')}}">
     <!-- jvectormap -->
     <link rel="stylesheet" href="{{asset('bower_components/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -46,14 +43,19 @@
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="../../index2.html" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>Antariksa</b></span>
+        <a href="#" class="logo">
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>Antariksa</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{{route('auth.logout')}}"><i class="fa fa-sign-out"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>
 

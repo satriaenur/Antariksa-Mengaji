@@ -191,7 +191,9 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <button type="submit" class="btn btn-primary btn-block btn-flat"><h4>Daftar sekarang</h4></button>
+                <button type="submit" class="btn btn-primary btn-block btn-flat"
+                        style="background: #e32531; border: #e32531;"
+                ><h4>Daftar sekarang</h4></button>
             </div>
         </div>
 </form>

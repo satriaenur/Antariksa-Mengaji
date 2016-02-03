@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Antariksa</title>
+    <title>101Salad</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -16,11 +16,7 @@
     <link rel="stylesheet" href="{{asset('bower_components/AdminLTE/dist/css/AdminLTE.min.css')}}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{asset('bower_components/AdminLTE/plugins/iCheck/square/blue.css')}}">
-    <!-- Datepicker -->
-    <link rel="stylesheet" href="{{asset('bower_components/AdminLTE/plugins/datepicker/datepicker3.css')}}">
-    <style>
-        .desc {  height: 200px;  }
-    </style>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -29,14 +25,48 @@
     <![endif]-->
 </head>
 <body class="hold-transition login-page">
-<div class="login-box" style="width: 550px; margin: 3% auto;">
-    @include('alert')
+<div class="login-box">
     <div class="login-logo">
-        <img src="{{asset('img/logo-antariksa.png')}}" width="50%" style="display: block; margin: 2% auto;">
-        <a href="#">Pendaftaran Program <b style="color:#e32531;">Antariksa</b></a>
+        <a href="#"><b>Antariksa</b></a>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
-        @yield('content')
+        <p class="login-box-msg">Sign in to start your session</p>
+        <form method="POST" action="{{ url('/login') }}" method="post" id="form-login">
+            {{ csrf_field() }}
+            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} has-feedback">
+                <input type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                @if ($errors->has('email'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
+            </div>
+            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} has-feedback">
+                <input type="password" class="form-control" placeholder="Password" name="password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                @if ($errors->has('password'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox" name="remember"> Remember Me
+                        </label>
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                </div><!-- /.col -->
+            </div>
+        </form>
+
+        <a href="{{ url('/password/reset') }}">I forgot my password</a><br>
+
     </div><!-- /.login-box-body -->
 </div><!-- /.login-box -->
 
@@ -46,8 +76,6 @@
 <script src="{{asset('bower_components/AdminLTE/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- iCheck -->
 <script src="{{asset('bower_components/AdminLTE/plugins/iCheck/icheck.min.js')}}"></script>
-<!-- Datepicker -->
-<script src="{{asset('bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 <script>
     $(function () {
         $('input').iCheck({
@@ -56,31 +84,6 @@
             increaseArea: '20%' // optional
         });
     });
-
-    $(".datepicker").datepicker({
-        format: 'yyyy-mm-dd',
-    });
-
-    $("#select-province").on("change", function(e){
-        var data = { province_id: $(this).val() };
-        update_city_dropdown(data);
-    });
-
-    function update_city_dropdown(data){
-        $.ajax({
-            url: "{{ route('data.cities') }}",
-            type: 'GET',
-            data: data,
-        })
-        .done(function(cities) {
-            $('#select-city').empty();
-            for(i in cities) {
-                $('#select-city').append('<option value="' + cities[i].id + '">' + cities[i].title + '</option>');
-            }
-        });
-    }
 </script>
-
-@yield('js')
 </body>
 </html>
