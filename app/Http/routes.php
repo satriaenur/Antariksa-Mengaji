@@ -30,11 +30,12 @@ $this::group(['middleware' => ['web']], function () {
     $this->get('logout', ['as' => 'auth.logout', 'uses' => 'Auth\AuthController@logout']);
 
     $this->get('/home', ['as' => 'home.index', 'uses'=>'HomeController@index']);
-
+    $this->get('/admin', function(){
+       return redirect()->route('admin.index');
+    });
     $this->get('/', ['as' => 'home', 'uses' => 'RegisterController@index']);
     $this->post('/register/store', ['as' => 'register.store', 'uses' => 'RegisterController@postStore']);
     $this->get('/data/cities', ['as' => 'data.cities', 'uses' => 'LocationController@getAjaxCities']);
     $this->get('/admin/pendaftar', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
-    $this->get('/admin/pendaftar/export', ['as' => 'admin.pendaftar.export', 'uses' => 'AdminController@exportRekap']);
-    $this->get('/test/export', ['as' => 'test.export', 'uses' => 'AdminController@testExport']);
+    $this->get('/admin/pendaftar/export/{gender}', ['as' => 'admin.pendaftar.export', 'uses' => 'AdminController@exportRekap']);
 });

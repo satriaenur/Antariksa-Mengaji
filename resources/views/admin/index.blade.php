@@ -45,7 +45,14 @@
                     <i class="fa fa-user"></i>
                     <h3 class="box-title">Data Pendaftar</h3>
                     <div class="pull-right box-tools">
-                        <a href="{{route('admin.pendaftar.export')}}" class="btn btn-primary btn-sm"><i class="fa fa-download"></i> Export</a>
+                        <div class="btn-group">
+                            <a href="{{route('admin.pendaftar.export', ["L"])}}"
+                               class="btn btn-primary btn-sm"><i class="fa fa-download"></i> Export Ikhwan
+                            </a>
+                            <a href="{{route('admin.pendaftar.export', ["P"])}}"
+                               class="btn btn-primary btn-sm"><i class="fa fa-download"></i> Export Akhwat
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="box-body">

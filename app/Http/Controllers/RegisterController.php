@@ -15,7 +15,7 @@ class RegisterController extends Controller
         $this->pendaftar = $pendaftar;
     }
 
-    public function index(Request $request)
+    public function index()
     {
         return view('register.form_register');
     }

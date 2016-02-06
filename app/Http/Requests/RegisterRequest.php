@@ -10,6 +10,7 @@ class RegisterRequest extends Request
         'full_name' => 'required',
         'call_name' => 'required',
         'birthdate' => 'required',
+        'gender' => 'required',
         'phone' => 'required|unique:pendaftars,phone|numeric',
         'email' => 'required|email',
         'address' => 'required',

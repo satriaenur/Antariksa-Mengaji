@@ -18,23 +18,35 @@
     <link rel="stylesheet" href="{{asset('bower_components/AdminLTE/plugins/iCheck/square/blue.css')}}">
     <!-- Datepicker -->
     <link rel="stylesheet" href="{{asset('bower_components/AdminLTE/plugins/datepicker/datepicker3.css')}}">
-    <style>
-        .desc {  height: 200px;  }
-    </style>
+
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url('img/page-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+        }
+    </style>
 </head>
 <body class="hold-transition login-page">
-<div class="login-box" style="width: 550px; margin: 3% auto;">
-    @include('alert')
-    <div class="login-logo">
-        <img src="{{asset('img/logo-antariksa.png')}}" width="50%" style="display: block; margin: 2% auto;">
+<div class="loader"></div>
+<div class="login-box-responsive">
+
+    <div class="login-logo" style="margin-bottom:30px">
+        <img src="{{asset('img/logo-antariksa.png')}}" width="55%" style="display: block; margin: 2% auto;">
         <a href="#">Pendaftaran Program <b style="color:#e32531;">Antariksa</b></a>
     </div><!-- /.login-logo -->
+    @include('alert')
     <div class="login-box-body">
         @yield('content')
     </div><!-- /.login-box-body -->
@@ -79,6 +91,21 @@
             }
         });
     }
+
+    $(window).load(function() {
+        $(".loader").fadeOut("slow");
+    })
+
+</script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-73406931-1', 'auto');
+    ga('send', 'pageview');
 </script>
 
 @yield('js')

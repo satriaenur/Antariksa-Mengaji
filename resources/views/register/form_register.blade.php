@@ -6,7 +6,7 @@
         <h4 class="text-bold">Informasi Pribadi</h4><hr>
 
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-12 col-sm-6">
                 <div class="form-group{{ $errors->has('full_name') ? ' has-error' : '' }} has-feedback">
                     <label>Nama Lengkap</label>
                     <input type="text" class="form-control" placeholder="" name="full_name" value="{{ old('full_name') }}">
@@ -15,7 +15,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-12 col-sm-6">
                 <div class="form-group{{ $errors->has('call_name') ? ' has-error' : '' }} has-feedback">
                     <label>Nama Panggilan</label>
                     <input type="text" class="form-control" placeholder="" name="call_name" value="{{ old('call_name') }}">
@@ -24,6 +24,18 @@
                     @endif
                 </div>
             </div>
+        </div>
+
+        {{--Gender--}}
+        <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }} has-feedback">
+            <label>Jenis Kelamin</label>
+            <select class="form-control" name="gender">
+                <option value="L">Laki-Laki</option>
+                <option value="P">Perempuan</option>
+            </select>
+            @if ($errors->has('gender'))
+                <span class="help-block"><strong>{{ $errors->first('gender') }}</strong></span>
+            @endif
         </div>
 
         {{--Birtdate--}}
@@ -58,7 +70,7 @@
             <div class="col-xs-12">
                 <label>Akun Media Sosial</label>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-12 col-sm-4">
                 <div class="form-group{{ $errors->has('fb') ? ' has-error' : '' }} has-feedback">
                     <input type="text" class="form-control" placeholder="" name="fb" value="{{ old('fb') }}">
                     <span class="fa fa-facebook form-control-feedback"></span>
@@ -67,7 +79,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-12 col-sm-4">
                 <div class="form-group{{ $errors->has('twitter') ? ' has-error' : '' }} has-feedback">
                     <input type="text" class="form-control" placeholder="" name="twitter" value="{{ old('twitter') }}">
                     <span class="fa fa-twitter form-control-feedback"></span>
@@ -76,7 +88,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-12 col-sm-4">
                 <div class="form-group{{ $errors->has('instagram') ? ' has-error' : '' }} has-feedback">
                     <input type="text" class="form-control" placeholder="" name="instagram" value="{{ old('instagram') }}">
                     <span class="fa fa-instagram form-control-feedback"></span>
@@ -97,7 +109,7 @@
 
         {{--Province & City--}}
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-12 col-sm-6">
                 <div class="form-group{{ $errors->has('province_id') ? ' has-error' : '' }} has-feedback">
                     <label>Provinsi</label>
                     <select class="form-control" name="province_id" id="select-province">
@@ -110,7 +122,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-12 col-sm-6">
                 <div class="form-group{{ $errors->has('city_id') ? ' has-error' : '' }} has-feedback">
                     <label>Kota</label>
                     <select class="form-control" name="city_id" id="select-city"></select>
@@ -198,7 +210,6 @@
         </div>
 </form>
 @endsection
-
 @section('js')
     <script>
         $(document).ready(function(e){

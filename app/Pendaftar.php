@@ -11,6 +11,7 @@ class Pendaftar extends Model
     protected $fillable = [
         'full_name',
         'call_name',
+        'gender',
         'birthdate',
         'phone',
         'email',

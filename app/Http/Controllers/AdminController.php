@@ -37,11 +37,17 @@ class AdminController extends Controller
         return view('admin.index', $compact);
     }
 
-    public function exportRekap()
+    public function exportRekap($gender)
     {
         $date = date("d-m-Y");
-        $param['title'] = "Rekap Pendaftar Antariksa";
-        $file_name = "Rekap Pendaftar Antariksa - {$date}";
+
+        $genderTitle = $gender=='L' ? 'Ikhwan' : 'Akhwat';
+        $param['title'] = "Rekap Pendaftar Antariksa - {$genderTitle} - $date";
+        $param['dataPendaftar'] = $this->pendaftar
+            ->where('gender', $gender)
+            ->get();
+
+        $file_name = "Rekap Pendaftar Antariksa - {$genderTitle} - {$date}";
 
         return Excel::create($file_name, function($excel) use ($param) {
             $excel->setTitle($param['title']);
@@ -49,7 +55,7 @@ class AdminController extends Controller
                 $sheet->setAllBorders('thin');
                 $sheet->setPageMargin(0.25);
 
-                $data['pendaftar'] = Pendaftar::all();
+                $data['pendaftar'] = $param['dataPendaftar'];
 
                 $sheet->loadView('export.rekap')->with($data);
             });
