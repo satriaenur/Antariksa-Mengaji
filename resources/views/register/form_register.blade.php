@@ -47,6 +47,33 @@
             @endif
         </div>
 
+        {{--Pendidikan--}}
+        <div class="form-group{{ $errors->has('pendidikan') ? ' has-error' : '' }} has-feedback">
+            <label>Pendidikan Terakhir</label>
+            <select class="form-control" name="pendidikan">
+                <option value="SD">SD</option>
+                <option value="SMP">SMP</option>
+                <option value="SMA">SMA</option>
+                <option value="S1">S1</option>
+                <option value="S2">S2</option>
+                <option value="S3">S3</option>
+            </select>
+            @if ($errors->has('pendidikan'))
+                <span class="help-block"><strong>{{ $errors->first('pendidikan') }}</strong></span>
+            @endif
+        </div>
+
+        {{--Pekerjaan--}}
+        <div class="form-group{{ $errors->has('pekerjaan') ? ' has-error' : '' }} has-feedback">
+            <label>Pekerjaan</label>
+            <input type="text" class="form-control" placeholder="" name="pekerjaan" value="{{ old('pekerjaan') }}">
+            @if ($errors->has('pekerjaan'))
+                <span class="help-block"><strong>{{ $errors->first('pekerjaan') }}</strong></span>
+            @endif
+        </div>
+
+
+
         {{--Phone--}}
         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }} has-feedback">
             <label>No Handphone</label>
