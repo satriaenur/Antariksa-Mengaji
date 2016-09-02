@@ -3,6 +3,20 @@
 @section('content')
     <form method="POST" action="{{route('register.store')}}" method="post" id="form-login" autocomplete="off">
     {{ csrf_field() }}
+        <h4 class="text-bold">Informasi Akun</h4><hr>
+
+        {{--Password--}}
+        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} has-feedback">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="" name="password">
+            @if ($errors->has('password'))
+                <span class="help-block"><strong>{{ $errors->first('password') }}</strong></span>
+            @endif
+            <label>Password Confirmation</label>
+            <input type="password" class="form-control" placeholder="" name="password_confirmation">
+        </div>
+
+
         <h4 class="text-bold">Informasi Pribadi</h4><hr>
 
         <div class="row">
@@ -101,7 +115,7 @@
 
         <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }} has-feedback">
             <label>Alamat Domisili</label>
-            <textarea class="form-control desc" placeholder="" name="address" value="{{ old('address') }}"></textarea>
+            <textarea class="form-control desc" placeholder="" name="address">{{ old('address') }}</textarea>
             @if ($errors->has('address'))
                 <span class="help-block"><strong>{{ $errors->first('address') }}</strong></span>
             @endif
