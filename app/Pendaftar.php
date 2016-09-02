@@ -26,7 +26,9 @@ class Pendaftar extends Model
         'expectation',
         'fb',
         'twitter',
-        'instagram'
+        'instagram', 
+        'pendidikan',
+        'pekerjaan'
     ];
 
     public function city()
