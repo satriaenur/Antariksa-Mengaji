@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pendaftar;
 use App\User;
+use App\Jalur;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -20,10 +21,10 @@ class RegisterController extends Controller
 
     protected $redirectTo = '/home';
 
-    public function __construct(Pendaftar $pendaftar, User $user)
+    public function __construct(Pendaftar $pendaftar, Jalur $jalur)
     {
         $this->pendaftar = $pendaftar;
-        $this->user = $user;
+        $this->jalur = $jalur;
     }
 
     public function index()
@@ -31,9 +32,10 @@ class RegisterController extends Controller
         $sisaQuotaIkhwan = self::MAX_IKHWAN - $this->countPendaftar("L");
         $sisaQuotaAkhwat = self::MAX_AKWAT - $this->countPendaftar("P");
 
-        $statusQuotaIkhwan = $sisaQuotaIkhwan <= 0 ? 0 : $sisaQuotaIkhwan;
-        $statusQuotaAkhwat = $sisaQuotaAkhwat <= 0 ? 0 : $sisaQuotaAkhwat;
-        return view('register.form_register', compact('statusQuotaIkhwan', 'statusQuotaAkhwat'));
+        $data['statusQuotaIkhwan'] = $sisaQuotaIkhwan <= 0 ? 0 : $sisaQuotaIkhwan;
+        $data['statusQuotaAkhwat'] = $sisaQuotaAkhwat <= 0 ? 0 : $sisaQuotaAkhwat;
+        $data['jalurs'] = $this->jalur->all();
+        return view('register.form_register', $data);
     }
 
     protected function validator(array $data)

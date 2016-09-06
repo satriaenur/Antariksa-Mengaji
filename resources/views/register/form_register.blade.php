@@ -241,20 +241,56 @@
             @endif
         </div>
 
+        <input type="hidden" id="id_jalur" name="id_jalur" value="{{ old('id_jalur') }}"/>
 
         <div class="row">
             <div class="col-xs-12">
-                <button type="submit" class="btn btn-primary btn-block btn-flat"
-                        style="background: #e32531; border: #e32531;"
+                <button type="button" class="btn btn-primary btn-block btn-flat"
+                        style="background: #e32531; border: #e32531;" data-toggle="modal" data-target="#modalJalur"
                 ><h4>Daftar sekarang</h4></button>
             </div>
         </div>
+
+        <div id="modalJalur" class="modal fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Pilih Jalur</h4>
+              </div>
+              <div class="modal-body">
+                <div id="pilih_jalur">
+                @foreach($jalurs as $jalur)
+                    <center>
+                        <button type="button" class="btn btn-default btn-lg" onclick="pilihJalur( {{$jalur->id}} )">{{$jalur->name}}</button><br/><br/>
+                    </center>
+                @endforeach
+                </div>
+                <div id="detail_jalur">
+                    <div id="nama_jalur"></div><br/>
+                    <div id="desc_jalur"></div><br/>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block"> Daftar Sekarang </button><br/>
+                    <button type="button" class="btn btn-default btn-block" onclick="backPaket()"> Kembali ke Pilihan Paket Program </button>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 </form>
 @endsection
 @section('js')
     <script>
         $(document).ready(function(e){
             var data = { province_id: 1 };
+            jalur = $("#id_jalur").val();
+            if (jalur != ""){
+                pilihJalur(jalur);
+            }else {
+                backPaket();
+            }
             update_city_dropdown(data);
         });
     </script>

@@ -33,9 +33,16 @@ $this::group(['middleware' => ['web']], function () {
     $this->get('/admin', function(){
        return redirect()->route('admin.index');
     });
+
+    // registration
     $this->get('/', ['as' => 'home', 'uses' => 'RegisterController@index']);
     $this->post('/register/store', ['as' => 'register.store', 'uses' => 'RegisterController@postStore']);
+
+    // data
     $this->get('/data/cities', ['as' => 'data.cities', 'uses' => 'LocationController@getAjaxCities']);
+    $this->get('/data/jalur', ['as' => 'data.jalurdetail', 'uses' => 'JalurController@getDetailJalur']);
+
+    // admin
     $this->get('/admin/pendaftar', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
     $this->get('/admin/pendaftar/export/{gender}', ['as' => 'admin.pendaftar.export', 'uses' => 'AdminController@exportRekap']);
 });

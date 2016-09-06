@@ -40,12 +40,12 @@
 </head>
 <body class="hold-transition login-page">
 <div class="loader"></div>
-<div class="alert alert-success alert-dismissible fade in submitted" data-dismiss="alert" role="alert" style="height: 55px; border-radius:0;">
+<!-- <div class="alert alert-success alert-dismissible fade in submitted" data-dismiss="alert" role="alert" style="height: 55px; border-radius:0;">
     <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span></button>
     <center>
         <p style="font-style: italic">Sisa Kuota: {{$statusQuotaIkhwan}} (Ikhwan) dan {{$statusQuotaAkhwat}} (Akhwat). Jika kuota habis, pendaftar baru akan masuk ke dalam pendaftar waiting list.</p>
     </center>
-</div>
+</div> -->
 <div class="login-box-responsive">
     <div class="login-logo" style="margin-bottom:30px">
         <img src="{{asset('img/logo-antariksa.png')}}" width="55%" style="display: block; margin: 2% auto;">
@@ -95,6 +95,30 @@
                 $('#select-city').append('<option value="' + cities[i].id + '">' + cities[i].title + '</option>');
             }
         });
+    }
+
+    function getDataJalur(jalur){
+        $.ajax({
+            url: "{{ route('data.jalurdetail') }}",
+            type: 'GET',
+            data: {'id':jalur}
+        })
+        .done(function(data){
+            $('#nama_jalur').html("<h3>" + data[0].name + "</h3>");
+            $('#desc_jalur').html("<p>" + data[0].description + "</p>");
+            $("#id_jalur").val(data[0].id);
+            $("#detail_jalur").show();
+        });
+    }
+
+    function pilihJalur(jalur){
+        $("#pilih_jalur").hide();
+        getDataJalur(jalur);
+    }
+
+    function backPaket(){
+        $("#pilih_jalur").show();
+        $("#detail_jalur").hide();
     }
 
     $(window).load(function() {
