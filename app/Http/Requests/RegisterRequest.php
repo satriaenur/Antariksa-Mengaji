@@ -20,6 +20,7 @@ class RegisterRequest extends Request
         'platform' => 'required',
         'experience' => 'required',
         'expectation' => 'required',
+        'password' => 'required|confirmed|min:6',
     ];
 
     /**

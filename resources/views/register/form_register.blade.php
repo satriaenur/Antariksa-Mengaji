@@ -241,7 +241,7 @@
             @endif
         </div>
 
-        <input type="hidden" id="id_jalur" name="id_jalur" value="{{ old('id_jalur') }}"/>
+        <input type="hidden" id="jalur_id" name="jalur_id" value="{{ old('jalur_id') }}"/>
 
         <div class="row">
             <div class="col-xs-12">
@@ -262,7 +262,15 @@
                 <div id="pilih_jalur">
                 @foreach($jalurs as $jalur)
                     <center>
-                        <button type="button" class="btn btn-default btn-lg" onclick="pilihJalur( {{$jalur->id}} )">{{$jalur->name}}</button><br/><br/>
+                        <button type="button" class="btn btn-default btn-lg" onclick="pilihJalur( {{$jalur->id}} )"><h3>{{$jalur->name}}</h3><br/><br/><center>
+                            @if($jalur->is_waiting)
+                                <b>Sisa Quota</b><br/>
+                                Ikhwan : {{ $jalur->quota_male - $jalur->posisi_ikhwan }} | Akhwat : {{ $jalur->quota_female - $jalur->posisi_akhwat }}
+                            @else
+                                <b>Jumlah Pendaftar</b><br/>
+                                Ikhwan : {{ $jalur->posisi_ikhwan }} | Akhwat : {{ $jalur->posisi_akhwat }}
+                            @endif
+                        </center></button><br/><br/>
                     </center>
                 @endforeach
                 </div>
@@ -285,7 +293,7 @@
     <script>
         $(document).ready(function(e){
             var data = { province_id: 1 };
-            jalur = $("#id_jalur").val();
+            jalur = $("#jalur_id").val();
             if (jalur != ""){
                 pilihJalur(jalur);
             }else {

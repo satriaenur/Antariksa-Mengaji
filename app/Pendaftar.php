@@ -28,7 +28,8 @@ class Pendaftar extends Model
         'twitter',
         'instagram', 
         'pendidikan',
-        'pekerjaan'
+        'pekerjaan',
+        'jalur_id'
     ];
 
     public function city()
@@ -39,5 +40,10 @@ class Pendaftar extends Model
     public function province()
     {
         return $this->hasOne('App\Province', 'id', 'province_id');
+    }
+
+    public function jalur()
+    {
+        return $this->belongsTo('App\Jalur');
     }
 }

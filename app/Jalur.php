@@ -13,4 +13,8 @@ class Jalur extends Model
 		'quota_female',
 		'generation'
 	];
+
+	public function pendaftar(){
+		return $this->hasMany('App\Pendaftar');
+	}
 }
