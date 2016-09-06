@@ -16,6 +16,7 @@ class JalurSeeder extends Seeder
     			"code" => "JR",
     			"quota_male" => "150",
     			"quota_female" => "50",
+                "is_waiting" => true,
     			"description" => "Layanan belajar dan mengajar Al Quran melalui aplikasi WhatsApp. Pembelajaran 
     			dilakukan dalam bentuk group chat dengan metode pembelajaran berupa teori, praktek membaca dengan rekaman, 
     			dan evaluasi.<br/><br/>

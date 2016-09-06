@@ -24,4 +24,5 @@ class JalurController extends Controller
             ->toArray();
         return response()->json($jalur);
 	}
+
 }

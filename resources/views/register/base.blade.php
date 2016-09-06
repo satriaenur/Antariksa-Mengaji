@@ -106,7 +106,7 @@
         .done(function(data){
             $('#nama_jalur').html("<h3>" + data[0].name + "</h3>");
             $('#desc_jalur').html("<p>" + data[0].description + "</p>");
-            $("#id_jalur").val(data[0].id);
+            $("#jalur_id").val(data[0].id);
             $("#detail_jalur").show();
         });
     }
