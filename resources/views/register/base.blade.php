@@ -80,10 +80,10 @@
 
     $("#select-province").on("change", function(e){
         var data = { province_id: $(this).val() };
-        update_city_dropdown(data);
+        update_city_dropdown(data,1);
     });
 
-    function update_city_dropdown(data){
+    function update_city_dropdown(data,id){
         $.ajax({
             url: "{{ route('data.cities') }}",
             type: 'GET',
@@ -92,7 +92,8 @@
         .done(function(cities) {
             $('#select-city').empty();
             for(i in cities) {
-                $('#select-city').append('<option value="' + cities[i].id + '">' + cities[i].title + '</option>');
+                kata = (cities[i].id == id)?"selected":"";
+                $('#select-city').append('<option value="' + cities[i].id + '" '+ kata +' >' + cities[i].title + '</option>');
             }
         });
     }

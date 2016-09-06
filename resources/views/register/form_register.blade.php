@@ -44,8 +44,8 @@
         <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }} has-feedback">
             <label>Jenis Kelamin</label>
             <select class="form-control" name="gender">
-                <option value="L">Laki-Laki</option>
-                <option value="P">Perempuan</option>
+                <option value="L" {{(old('gender')=="L")?"selected":""}}>Laki-Laki</option>
+                <option value="P" {{(old('gender')=="P")?"selected":""}}>Perempuan</option>
             </select>
             @if ($errors->has('gender'))
                 <span class="help-block"><strong>{{ $errors->first('gender') }}</strong></span>
@@ -65,12 +65,12 @@
         <div class="form-group{{ $errors->has('pendidikan') ? ' has-error' : '' }} has-feedback">
             <label>Pendidikan Terakhir</label>
             <select class="form-control" name="pendidikan">
-                <option value="SD">SD</option>
-                <option value="SMP">SMP</option>
-                <option value="SMA">SMA</option>
-                <option value="S1">S1</option>
-                <option value="S2">S2</option>
-                <option value="S3">S3</option>
+                <option value="SD" {{(old('pendidikan')=="SD")?"selected":""}}>SD</option>
+                <option value="SMP" {{(old('pendidikan')=="SMP")?"selected":""}}>SMP</option>
+                <option value="SMA" {{(old('pendidikan')=="SMA")?"selected":""}}>SMA</option>
+                <option value="S1" {{(old('pendidikan')=="S1")?"selected":""}}>S1</option>
+                <option value="S2" {{(old('pendidikan')=="S2")?"selected":""}}>S2</option>
+                <option value="S3" {{(old('pendidikan')=="S3")?"selected":""}}>S3</option>
             </select>
             @if ($errors->has('pendidikan'))
                 <span class="help-block"><strong>{{ $errors->first('pendidikan') }}</strong></span>
@@ -155,7 +155,7 @@
                     <label>Provinsi</label>
                     <select class="form-control" name="province_id" id="select-province">
                         @foreach(\App\Province::all() as $province)
-                            <option value="{{$province->id}}">{{$province->title}}</option>
+                            <option value="{{$province->id}}" {{(old('province_id') == $province->id)?"selected":""}}>{{$province->title}}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('province_id'))
@@ -178,10 +178,10 @@
         <div class="form-group{{ $errors->has('time_zone') ? ' has-error' : '' }} has-feedback">
             <label>Zona Waktu</label>
             <select class="form-control" name="time_zone">
-                <option value="WIB">WIB</option>
-                <option value="WITA">WITA</option>
-                <option value="WIT">WIT</option>
-                <option value="LN">Luar Negeri</option>
+                <option value="WIB" {{(old('time_zone') == "WIB")?"selected":""}}>WIB</option>
+                <option value="WITA" {{(old('time_zone') == "WITA")?"selected":""}}>WITA</option>
+                <option value="WIT" {{(old('time_zone') == "WIT")?"selected":""}}>WIT</option>
+                <option value="LN" {{(old('time_zone') == "LN")?"selected":""}}>Luar Negeri</option>
             </select>
             @if ($errors->has('time_zone'))
                 <span class="help-block"><strong>{{ $errors->first('time_zone') }}</strong></span>
@@ -193,10 +193,10 @@
         <div class="form-group{{ $errors->has('platform') ? ' has-error' : '' }} has-feedback">
             <label>Apa jenis HP yang Anda gunakan?</label>
             <select class="form-control" name="platform">
-                <option value="android">Android</option>
-                <option value="ios">iPhone (iOS)</option>
-                <option value="blackberry">Blackberry</option>
-                <option value="other">Lainnya</option>
+                <option value="android" {{(old('platform')=="android")?"selected":""}}>Android</option>
+                <option value="ios" {{(old('platform')=="ios")?"selected":""}}>iPhone (iOS)</option>
+                <option value="blackberry" {{(old('platform')=="blackberry")?"selected":""}}>Blackberry</option>
+                <option value="other" {{(old('platform')=="other")?"selected":""}}>Lainnya</option>
             </select>
             @if ($errors->has('platform'))
                 <span class="help-block"><strong>{{ $errors->first('platform') }}</strong></span>
@@ -211,14 +211,14 @@
                 <div class="col-xs-4">
                     <div class="checkbox icheck {{ $errors->has('whatsapp') ? ' has-error' : '' }}">
                         <label>
-                            <input type="checkbox" name="whatsapp" value="whatsapp"> WhatsApp</a>
+                            <input type="checkbox" name="whatsapp" value="whatsapp" {{(old('whatsapp'))?"checked":""}}> WhatsApp</a>
                         </label>
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <div class="checkbox icheck {{ $errors->has('telegram') ? ' has-error' : '' }}">
                         <label>
-                            <input type="checkbox" name="telegram" value="telegram"> Telegram</a>
+                            <input type="checkbox" name="telegram" value="telegram" {{(old('telegram'))?"checked":""}}> Telegram</a>
                         </label>
                     </div>
                 </div>
@@ -292,14 +292,14 @@
 @section('js')
     <script>
         $(document).ready(function(e){
-            var data = { province_id: 1 };
+            var data = { province_id: {{(old('province_id'))?old('province_id'):"1"}} };
             jalur = $("#jalur_id").val();
             if (jalur != ""){
                 pilihJalur(jalur);
             }else {
                 backPaket();
             }
-            update_city_dropdown(data);
+            update_city_dropdown(data, {{(old('city_id'))?old('city_id'):"1"}});
         });
     </script>
 @endsection
