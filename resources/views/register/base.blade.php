@@ -40,12 +40,6 @@
 </head>
 <body class="hold-transition login-page">
 <div class="loader"></div>
-<!-- <div class="alert alert-success alert-dismissible fade in submitted" data-dismiss="alert" role="alert" style="height: 55px; border-radius:0;">
-    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span></button>
-    <center>
-        <p style="font-style: italic">Sisa Kuota: {{$statusQuotaIkhwan}} (Ikhwan) dan {{$statusQuotaAkhwat}} (Akhwat). Jika kuota habis, pendaftar baru akan masuk ke dalam pendaftar waiting list.</p>
-    </center>
-</div> -->
 <div class="login-box-responsive">
     <div class="login-logo" style="margin-bottom:30px">
         <img src="{{asset('img/logo-antariksa.png')}}" width="55%" style="display: block; margin: 2% auto;">

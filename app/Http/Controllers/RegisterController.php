@@ -16,9 +16,6 @@ class RegisterController extends Controller
 {
     use AuthenticatesAndRegistersUsers;
 
-    const MAX_IKHWAN = 150;
-    const MAX_AKWAT = 300;
-
     protected $redirectTo = '/home';
 
     public function __construct(Pendaftar $pendaftar, Jalur $jalur)
@@ -29,11 +26,6 @@ class RegisterController extends Controller
 
     public function index()
     {
-        $sisaQuotaIkhwan = self::MAX_IKHWAN - $this->countPendaftar("L");
-        $sisaQuotaAkhwat = self::MAX_AKWAT - $this->countPendaftar("P");
-
-        $data['statusQuotaIkhwan'] = $sisaQuotaIkhwan <= 0 ? 0 : $sisaQuotaIkhwan;
-        $data['statusQuotaAkhwat'] = $sisaQuotaAkhwat <= 0 ? 0 : $sisaQuotaAkhwat;
         $data['jalurs'] = $this->jalur->all();
         return view('register.form_register', $data);
     }
@@ -70,7 +62,7 @@ class RegisterController extends Controller
         $dataPendaftar = $request->except(['_token']);
 
         # get waiting list status based on quota
-        $statusWaitingList = $this->setWaitingListStatus($request->get('gender'));
+        $statusWaitingList = $this->setWaitingListStatus($request->get('gender'),$request->get('jalur_id'));
 
         $dataPendaftar['whatsapp'] = isset($dataPendaftar['whatsapp']) ? true : false;
         $dataPendaftar['telegram'] = isset($dataPendaftar['telegram']) ? true : false;
@@ -89,14 +81,14 @@ class RegisterController extends Controller
         $this->postRegister($request);
         $jalur = $this->jalur->find($dataPendaftar['jalur_id']);
         if ($dataPendaftar['gender'] == "L") {
-            $jalur->posisi_ikhwan = ($jalur->posisi_ikhwan == $jalur->quota_male)?0:$jalur->posisi_ikhwan + 1;
+            $jalur->posisi_ikhwan = ($jalur->posisi_ikhwan == $jalur->quota_male)?1:$jalur->posisi_ikhwan + 1;
         }else{
-            $jalur->posisi_akhwat = ($jalur->posisi_akhwat == $jalur->quota_female)?0:$jalur->posisi_akhwat + 1;
+            $jalur->posisi_akhwat = ($jalur->posisi_akhwat == $jalur->quota_female)?1:$jalur->posisi_akhwat + 1;
         }
         $jalur->save();
 
 
-        if ($statusWaitingList == true) {
+        if ($statusWaitingList) {
             $message = "Karena kuota pendaftar sudah penuh, Anda masuk ke dalam waiting list. Kami akan menghubungi Anda jika terdapat kuota tambahan";
         } else {
             $message = "Pendaftaran berhasil";
@@ -105,18 +97,13 @@ class RegisterController extends Controller
         return back()->with(MSG_SUCCESS, $message);
     }
 
-    private function setWaitingListStatus($gender)
+    private function setWaitingListStatus($gender,$jalur_id)
     {
-        $countPendaftar = $this->countPendaftar($gender);
-        $maxPendaftar = ($gender == "L") ? self::MAX_IKHWAN : self::MAX_AKWAT;
-        return $countPendaftar >= $maxPendaftar ? true : false;
-    }
-
-    private function countPendaftar($gender)
-    {
-        return $this->pendaftar
-            ->where('gender', $gender)
-//            ->where('is_waiting_list', false)
-            ->count();
+        $jalur = $this->jalur
+        ->where("id",$jalur_id)
+        ->get()[0];
+        $total = ($gender == "L") ? $jalur->posisi_ikhwan : $jalur->posisi_akhwat;
+        $max = ($gender == "L") ? $jalur->quota_male : $jalur->quota_female;
+        return (($total >= $maxPendaftar) and ($jalur->is_waiting)) ? true : false;
     }
 }
