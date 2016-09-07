@@ -91,10 +91,10 @@ class RegisterController extends Controller
 
 
         $asalkota= $pendaftar->city;
-        $kodejalur = $nomorurut.". ".$jalur->code." ".$pendaftar->full_name." ".$asalkota->title;
+        $kodejalur = $nomorurut.$dataPendaftar['gender'].". ".$jalur->code." ".$pendaftar->full_name." ".$asalkota->title;
         $tanggalpendaftaran = $pendaftar->created_at;
         $result = [
-            "kode" => $kodejalur.$dataPendaftar['gender'],
+            "kode" => $kodejalur,
             "tanggal" => date_format($tanggalpendaftaran,"Y/m/d H:i:s"),
             "jalur" => $jalur->name, 
             "status_daftar" => $statusWaitingList
