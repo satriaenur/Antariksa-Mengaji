@@ -85,24 +85,35 @@ class RegisterController extends Controller
            );
         }
 
-        $this->pendaftar->create($dataPendaftar);
+        $pendaftar = $this->pendaftar->create($dataPendaftar);
         $this->postRegister($request);
         $jalur = $this->jalur->find($dataPendaftar['jalur_id']);
         if ($dataPendaftar['gender'] == "L") {
             $jalur->posisi_ikhwan = ($jalur->posisi_ikhwan == $jalur->quota_male)?0:$jalur->posisi_ikhwan + 1;
+            $nomorurut = $jalur->posisi_ikhwan * $jalur->generation;
         }else{
             $jalur->posisi_akhwat = ($jalur->posisi_akhwat == $jalur->quota_female)?0:$jalur->posisi_akhwat + 1;
+            $nomorurut = $jalur->posisi_akhwat * $jalur->generation;
         }
         $jalur->save();
 
 
+        $asalkota= $pendaftar->city;
+        $kodejalur = $nomorurut.". ".$jalur->code." ".$pendaftar->full_name." ".$asalkota->title;
+        $tanggalpendaftaran = $pendaftar->created_at;
+        $result = [
+            "kode" => $kodejalur,
+            "tanggal" => date_format($tanggalpendaftaran,"Y/m/d H:i:s"),
+            "jalur" => $jalur->name, 
+        ];
+
         if ($statusWaitingList == true) {
             $message = "Karena kuota pendaftar sudah penuh, Anda masuk ke dalam waiting list. Kami akan menghubungi Anda jika terdapat kuota tambahan";
         } else {
-            $message = "Pendaftaran berhasil";
+            $message = "Pendaftaran berhasil   Nomor Tiket Pendaftar : ".$kodejalur." Waktu Pendaftaran : ".date_format($tanggalpendaftaran,"Y/m/d H:i:s");
         }
 
-        return back()->with(MSG_SUCCESS, $message);
+        return back()->with($result);
     }
 
     private function setWaitingListStatus($gender)

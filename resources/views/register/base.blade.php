@@ -124,6 +124,15 @@
 
     $(window).load(function() {
         $(".loader").fadeOut("slow");
+        var kode = "{{Session::get('kode')?Session::get('kode'):''}}";
+        var tanggal = "{{Session::get('tanggal')?Session::get('tanggal'):''}}";
+        var jalur = "{{Session::get('jalur')?Session::get('jalur'):''}}";
+        if (kode != '') {
+            $("#title_tiket").html("<h4 class='modal-title' style='font-size:200%;'>Selamat anda telah berhasil mendaftar di "+ jalur + "</h4>");
+            $("#tiket_pendaftaran").html("<p style='font-size:160%;'> Tiket Pendaftaran : "+ kode + "</p>");
+            $("#waktu_pendaftaran").html("<p style='font-size:160%;'> Waktu Pendaftaran : "+ tanggal + "</p>");
+            $("#modalTiket").modal('show');
+        };
     })
 
 </script>

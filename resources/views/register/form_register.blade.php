@@ -287,6 +287,28 @@
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        <div id="modalTiket" class="modal fade" tabindex="-1" role="dialog" >
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" >
+              <div class="modal-header" style="background: #23ec23;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div id="title_tiket"></div>
+              </div>
+              <div class="modal-body">
+                <center>
+                    <div id="detail_tiket">
+                        <div id="tiket_pendaftaran"></div><br/>
+                        <div id="waktu_pendaftaran"></div><br/>
+                        <div><p style='font-size:160%;'>Silakan kirim nomor tiket pendaftaran melalui whatsapp <br> ke nomor 08562251650 untuk melakukan verifikasi.</p></div>
+                    </div>
+                </center>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 </form>
 @endsection
 @section('js')
