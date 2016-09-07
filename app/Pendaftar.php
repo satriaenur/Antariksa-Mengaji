@@ -29,7 +29,8 @@ class Pendaftar extends Model
         'instagram', 
         'pendidikan',
         'pekerjaan',
-        'jalur_id'
+        'jalur_id',
+        'is_waiting_list'
     ];
 
     public function city()

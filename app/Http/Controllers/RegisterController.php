@@ -77,24 +77,30 @@ class RegisterController extends Controller
            );
         }
 
-        $this->pendaftar->create($dataPendaftar);
+        $pendaftar = $this->pendaftar->create($dataPendaftar);
         $this->postRegister($request);
         $jalur = $this->jalur->find($dataPendaftar['jalur_id']);
         if ($dataPendaftar['gender'] == "L") {
-            $jalur->posisi_ikhwan = ($jalur->posisi_ikhwan == $jalur->quota_male)?1:$jalur->posisi_ikhwan + 1;
+            $jalur->posisi_ikhwan = $jalur->posisi_ikhwan + 1;
+            $nomorurut = $jalur->posisi_ikhwan;
         }else{
-            $jalur->posisi_akhwat = ($jalur->posisi_akhwat == $jalur->quota_female)?1:$jalur->posisi_akhwat + 1;
+            $jalur->posisi_akhwat = $jalur->posisi_akhwat + 1;
+            $nomorurut = $jalur->posisi_akhwat;
         }
         $jalur->save();
 
 
-        if ($statusWaitingList) {
-            $message = "Karena kuota pendaftar sudah penuh, Anda masuk ke dalam waiting list. Kami akan menghubungi Anda jika terdapat kuota tambahan";
-        } else {
-            $message = "Pendaftaran berhasil";
-        }
+        $asalkota= $pendaftar->city;
+        $kodejalur = $nomorurut.". ".$jalur->code." ".$pendaftar->full_name." ".$asalkota->title;
+        $tanggalpendaftaran = $pendaftar->created_at;
+        $result = [
+            "kode" => $kodejalur.$dataPendaftar['gender'],
+            "tanggal" => date_format($tanggalpendaftaran,"Y/m/d H:i:s"),
+            "jalur" => $jalur->name, 
+            "status_daftar" => $statusWaitingList
+        ];
 
-        return back()->with(MSG_SUCCESS, $message);
+        return back()->with($result);
     }
 
     private function setWaitingListStatus($gender,$jalur_id)
@@ -102,8 +108,8 @@ class RegisterController extends Controller
         $jalur = $this->jalur
         ->where("id",$jalur_id)
         ->get()[0];
-        $total = ($gender == "L") ? $jalur->posisi_ikhwan : $jalur->posisi_akhwat;
+        $total = ($gender == "L") ? $jalur->posisi_ikhwan+1 : $jalur->posisi_akhwat+1;
         $max = ($gender == "L") ? $jalur->quota_male : $jalur->quota_female;
-        return (($total >= $maxPendaftar) and ($jalur->is_waiting)) ? true : false;
+        return (($total >= $max) and ($jalur->is_waiting));
     }
 }

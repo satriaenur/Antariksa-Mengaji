@@ -265,7 +265,7 @@
                         <button type="button" class="btn btn-default btn-lg" onclick="pilihJalur( {{$jalur->id}} )"><h3>{{$jalur->name}}</h3><br/><br/><center>
                             @if($jalur->is_waiting)
                                 <b>Sisa Quota</b><br/>
-                                Ikhwan : {{ $jalur->quota_male - $jalur->posisi_ikhwan }} | Akhwat : {{ $jalur->quota_female - $jalur->posisi_akhwat }}
+                                Ikhwan : {{ ( $jalur->quota_male > $jalur->posisi_ikhwan )?$jalur->quota_male - $jalur->posisi_ikhwan:"0" }} | Akhwat : {{ ( $jalur->quota_female > $jalur->posisi_akhwan )?$jalur->quota_female - $jalur->posisi_akhwat:"0" }}
                             @else
                                 <b>Jumlah Pendaftar</b><br/>
                                 Ikhwan : {{ $jalur->posisi_ikhwan }} | Akhwat : {{ $jalur->posisi_akhwat }}
@@ -280,6 +280,28 @@
                     <button type="submit" class="btn btn-primary btn-lg btn-block"> Daftar Sekarang </button><br/>
                     <button type="button" class="btn btn-default btn-block" onclick="backPaket()"> Kembali ke Pilihan Paket Program </button>
                 </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <div id="modalTiket" class="modal fade" tabindex="-1" role="dialog" >
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" >
+              <div class="modal-header alert-success text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div id="title_tiket"></div>
+              </div>
+              <div class="modal-body">
+                <center>
+                    <div id="detail_tiket">
+                        <div id="tiket_pendaftaran"></div><br/>
+                        <div id="waktu_pendaftaran"></div><br/>
+                        <div><p style='font-size:160%;'>Silakan kirim nomor tiket pendaftaran melalui whatsapp <br> ke nomor 08562251650 untuk melakukan verifikasi.</p></div>
+                    </div>
+                </center>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
