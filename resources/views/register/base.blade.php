@@ -122,7 +122,7 @@
         tanggal = "{{Session::get('tanggal')?Session::get('tanggal'):''}}";
         jalur = "{{Session::get('jalur')?Session::get('jalur'):''}}";
         status = {{Session::get('status_daftar')?Session::get('status_daftar'):"false"}};
-        kata = (status)?" dalam waiting list":"";
+        kata = (status==true)?" dalam waiting list":"";
         if (kode != '') {
             $("#title_tiket").html("<h4 class='modal-title' style='font-size:200%;'>Selamat anda telah berhasil mendaftar di "+ jalur + kata +"</h4>");
             $("#tiket_pendaftaran").html("<p style='font-size:160%;'> Tiket Pendaftaran : "+ kode + "</p>");
