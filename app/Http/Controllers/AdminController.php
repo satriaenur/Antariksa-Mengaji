@@ -19,7 +19,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $page_title = 'Data Pendaftar Antariksa';
+        $page_title = 'Dashboard';
         $users = $this->pendaftar->all();
 
         $count_pendaftar = $this->pendaftar->count();
@@ -66,5 +66,25 @@ class AdminController extends Controller
     {
         $data['pendaftar'] = Pendaftar::all();
         return view('export.rekap')->with($data);
+    }
+
+    public function data()
+    {
+        $page_title = 'Pendaftar Antariksa';
+        $users = $this->pendaftar->all();
+        $compact = compact(
+            'users','page_title'
+        );
+
+        return view('datapendaftar.index', $compact);
+    }
+    public function detail($id)
+    {
+        $page_title = 'Pendaftar Antariksa';
+        $user = Pendaftar::findOrFail($id);
+        $compact = compact(
+            'user','page_title'
+        );
+        return view('datapendaftar.detail',$compact);
     }
 }

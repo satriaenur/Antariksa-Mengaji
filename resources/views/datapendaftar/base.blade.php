@@ -59,18 +59,18 @@
         </nav>
     </header>
 
-      <aside class="main-sidebar">
+    <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">Menu</li>
-        <li class="active treeview">
+        <li >
           <a href="{{ route('admin.index') }}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li><a href="{{ route('datapendaftar.index') }}"><i class="fa fa-book"></i> <span>Data Pendaftar</span></a></li>
+        <li class="active treeview"><a href="{{ route('datapendaftar.index') }}"><i class="fa fa-book"></i> <span>Data Pendaftar</span></a></li>
       </ul>
     </section>
     <!-- /.sidebar -->
