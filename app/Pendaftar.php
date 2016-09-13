@@ -30,7 +30,8 @@ class Pendaftar extends Model
         'pendidikan',
         'pekerjaan',
         'jalur_id',
-        'is_waiting_list'
+        'is_waiting_list',
+        'user_id'
     ];
 
     public function city()
@@ -46,5 +47,10 @@ class Pendaftar extends Model
     public function jalur()
     {
         return $this->belongsTo('App\Jalur');
+    }
+
+    public function user()
+    {
+        return $this->hasOne('App\User');
     }
 }

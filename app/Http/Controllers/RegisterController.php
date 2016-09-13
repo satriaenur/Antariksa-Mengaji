@@ -10,18 +10,16 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class RegisterController extends Controller
 {
-    use AuthenticatesAndRegistersUsers;
-
     protected $redirectTo = '/home';
 
-    public function __construct(Pendaftar $pendaftar, Jalur $jalur)
+    public function __construct(Pendaftar $pendaftar, Jalur $jalur, User $user)
     {
         $this->pendaftar = $pendaftar;
         $this->jalur = $jalur;
+        $this->user = $user;
     }
 
     public function index()
@@ -29,34 +27,6 @@ class RegisterController extends Controller
         $data['jalurs'] = $this->jalur->all();
         return view('register.form_register', $data);
     }
-
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'phone' => 'required|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
-
-
 
     public function postStore(Requests\RegisterRequest $request) {
         $dataPendaftar = $request->except(['_token']);
@@ -68,17 +38,15 @@ class RegisterController extends Controller
         $dataPendaftar['telegram'] = isset($dataPendaftar['telegram']) ? true : false;
         $dataPendaftar['is_waiting_list'] = $statusWaitingList;
 
-        $request['name'] = $dataPendaftar['call_name'];
-        
-        $validator = $this->validator($request->all());
-        if ($validator->fails()) {
-           $this->throwValidationException(
-               $request, $validator
-           );
-        }
+        $dataUser = $request->only(['email','phone','password']);
+        $dataUser['name'] = $dataPendaftar['call_name'];
+        $dataUser['password'] = bcrypt($dataUser['password']);
 
         $pendaftar = $this->pendaftar->create($dataPendaftar);
-        $this->postRegister($request);
+        $user = $this->user->create($dataUser);
+        $pendaftar->user_id = $user->id;
+        $pendaftar->save();
+
         $jalur = $this->jalur->find($dataPendaftar['jalur_id']);
         if ($dataPendaftar['gender'] == "L") {
             $jalur->posisi_ikhwan = $jalur->posisi_ikhwan + 1;

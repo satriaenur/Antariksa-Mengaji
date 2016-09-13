@@ -47,4 +47,7 @@ $this::group(['middleware' => ['web']], function () {
     $this->get('/datapendaftar',['as' => 'datapendaftar.index', 'uses' => 'AdminController@data']);
     $this->get('/datapendaftar/detail/{id}',['as' => 'datapendaftar.detail', 'uses' => 'AdminController@detail']);
     $this->get('/admin/pendaftar/export/{gender}', ['as' => 'admin.pendaftar.export', 'uses' => 'AdminController@exportRekap']);
+
+    // User Dashboard
+    $this->get('/user',['as' => 'user.index', 'uses' => 'PendaftarController@index']);
 });
