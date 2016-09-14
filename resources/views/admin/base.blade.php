@@ -70,7 +70,7 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li><a href="{{ route('datapendaftar.index') }}"><i class="fa fa-book"></i> <span>Data Pendaftar</span></a></li>
+        <li><a href="{{ route('pendaftar.index') }}"><i class="fa fa-book"></i> <span>Data Pendaftar</span></a></li>
       </ul>
     </section>
     <!-- /.sidebar -->

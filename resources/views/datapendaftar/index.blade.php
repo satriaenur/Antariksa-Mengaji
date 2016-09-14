@@ -64,7 +64,7 @@
                                     {{ date("Y") - date("Y",strtotime($user->birthdate)) }}
                                 </td>
                                 <td>
-                                    <a href='#' data-toggle='modal' >Edit</a> | <a href="{{route('datapendaftar.detail', $user->id) }}" >Detail</a>
+                                    <a href="{{route('pendaftar.edit', $user->id) }}" data-toggle='modal' >Edit</a> | <a href="{{route('pendaftar.detail', $user->id) }}" >Detail</a>
                                 </td>
                             </tr>
                         @endforeach

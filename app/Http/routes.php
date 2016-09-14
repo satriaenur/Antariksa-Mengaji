@@ -43,9 +43,11 @@ $this::group(['middleware' => ['web']], function () {
     $this->get('/data/jalur', ['as' => 'data.jalurdetail', 'uses' => 'JalurController@getDetailJalur']);
 
     // admin
-    $this->get('/admin/pendaftar', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
-    $this->get('/datapendaftar',['as' => 'datapendaftar.index', 'uses' => 'AdminController@data']);
-    $this->get('/datapendaftar/detail/{id}',['as' => 'datapendaftar.detail', 'uses' => 'AdminController@detail']);
+    $this->get('/admin/dashboard', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
+    $this->get('/pendaftar',['as' => 'pendaftar.index', 'uses' => 'AdminController@data']);
+    $this->get('/pendaftar/edit/{id}',['as' => 'pendaftar.edit', 'uses' => 'AdminController@edit']);
+    $this->post('/pendaftar/edit/{id}', ['as' => 'pendaftar.update', 'uses' => 'AdminController@update']);
+    $this->get('/pendaftar/detail/{id}',['as' => 'pendaftar.detail', 'uses' => 'AdminController@detail']);
     $this->get('/admin/pendaftar/export/{gender}', ['as' => 'admin.pendaftar.export', 'uses' => 'AdminController@exportRekap']);
 
     // User Dashboard
