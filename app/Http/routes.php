@@ -29,10 +29,6 @@ $this::group(['middleware' => ['web']], function () {
     $this->post('login', ['as' => 'auth.login.post', 'uses' => 'Auth\AuthController@login']);
     $this->get('logout', ['as' => 'auth.logout', 'uses' => 'Auth\AuthController@logout']);
 
-    $this->get('/home', ['as' => 'home.index', 'uses'=>'HomeController@index']);
-    $this->get('/admin', function(){
-       return redirect()->route('admin.index');
-    });
 
     // registration
     $this->get('/', ['as' => 'home', 'uses' => 'RegisterController@index']);
@@ -42,14 +38,20 @@ $this::group(['middleware' => ['web']], function () {
     $this->get('/data/cities', ['as' => 'data.cities', 'uses' => 'LocationController@getAjaxCities']);
     $this->get('/data/jalur', ['as' => 'data.jalurdetail', 'uses' => 'JalurController@getDetailJalur']);
 
-    // admin
-    $this->get('/admin/pendaftar', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
-    $this->get('/datapendaftar',['as' => 'datapendaftar.index', 'uses' => 'AdminController@data']);
-    $this->get('/datapendaftar/detail/{id}',['as' => 'datapendaftar.detail', 'uses' => 'AdminController@detail']);
-    $this->get('/admin/pendaftar/export/{gender}', ['as' => 'admin.pendaftar.export', 'uses' => 'AdminController@exportRekap']);
+    // admin dashboard
+    $this->group(array('before' => 'auth'), function(){
+        $this->get('/home', ['as' => 'home.index', 'uses'=>'HomeController@index']);
+        $this->get('/admin', function(){
+           return redirect()->route('admin.index');
+        });
+        $this->get('/admin/pendaftar', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
+        $this->get('/datapendaftar',['as' => 'datapendaftar.index', 'uses' => 'AdminController@data']);
+        $this->get('/datapendaftar/detail/{id}',['as' => 'datapendaftar.detail', 'uses' => 'AdminController@detail']);
+        $this->get('/admin/pendaftar/export/{gender}', ['as' => 'admin.pendaftar.export', 'uses' => 'AdminController@exportRekap']);
+    });
 
     // User Dashboard
-    $this->group(array('before'=>'auth'),function(){
+    $this->group(array('before'=>'userAuth'),function(){
         $this->get('/user',['as' => 'user.index', 'uses' => 'PendaftarController@index']);
         $this->get('/user/berita',['as' => 'user.berita', 'uses' => 'PendaftarController@index']);
         $this->get('/user/status',['as' => 'user.status', 'uses' => 'PendaftarController@status']);
