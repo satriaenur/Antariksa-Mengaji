@@ -49,5 +49,14 @@ $this::group(['middleware' => ['web']], function () {
     $this->get('/admin/pendaftar/export/{gender}', ['as' => 'admin.pendaftar.export', 'uses' => 'AdminController@exportRekap']);
 
     // User Dashboard
-    $this->get('/user',['as' => 'user.index', 'uses' => 'PendaftarController@index']);
+    $this->group(array('before'=>'auth'),function(){
+        $this->get('/user',['as' => 'user.index', 'uses' => 'PendaftarController@index']);
+        $this->get('/user/berita',['as' => 'user.berita', 'uses' => 'PendaftarController@index']);
+        $this->get('/user/status',['as' => 'user.status', 'uses' => 'PendaftarController@status']);
+        $this->get('/user/materi',['as' => 'user.materi', 'uses' => 'PendaftarController@materi']);
+        $this->get('/user/kuis',['as' => 'user.kuis', 'uses' => 'PendaftarController@kuis']);
+        $this->get('/user/nilai',['as' => 'user.nilai', 'uses' => 'PendaftarController@nilai']);
+        $this->get('/user/profile',['as' => 'user.profile', 'uses' => 'PendaftarController@profile']);
+        $this->get('/user/store',['as' => 'user.store', 'uses' => 'PendaftarController@profil']);
+    });
 });

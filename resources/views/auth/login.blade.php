@@ -30,7 +30,12 @@
         <a href="#"><b>Antariksa</b></a>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        @if(Session::has('url.intended'))
+            <?php Session::pull('url.intended') ?>
+            <div class="alert alert-danger text-center">
+                Harap login terlebih dahulu.
+            </div>
+        @endif
         <form method="POST" action="{{ url('/login') }}" method="post" id="form-login">
             {{ csrf_field() }}
             <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }} has-feedback">
