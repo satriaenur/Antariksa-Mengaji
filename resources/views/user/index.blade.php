@@ -16,7 +16,7 @@
 <section class="content">
   <div class="row">
     <div class="col-md-12">
-      <div class="alert alert-success">
+      <div class="callout callout-success">
         Saat ini jumlah pendaftar jalur {{ Auth::user()->pendaftar[0]->jalur->name }} sebanyak :
         <ul>
           <li>Ikhwan : {{ Auth::user()->pendaftar[0]->jalur->pendaftar_ikhwan." dari ".Auth::user()->pendaftar[0]->jalur->quota_male }} </li>

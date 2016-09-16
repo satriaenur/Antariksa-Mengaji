@@ -27,7 +27,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>Antariksa</b></a>
+        <img src="{{asset('img/logo-antariksa.png')}}" width="55%" style="display: block; margin: 2% auto;">
     </div><!-- /.login-logo -->
     <div class="login-box-body">
         @if(Session::has('url.intended'))
@@ -65,12 +65,12 @@
                     </div>
                 </div><!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                 </div><!-- /.col -->
             </div>
         </form>
 
-        <a href="{{ url('/password/reset') }}">I forgot my password</a><br>
+        <!-- <a href="{{ url('/password/reset') }}">I forgot my password</a><br> -->
 
     </div><!-- /.login-box-body -->
 </div><!-- /.login-box -->

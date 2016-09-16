@@ -102,6 +102,11 @@
             $('#nama_jalur').html("<h3>" + data[0].name + "</h3>");
             $('#desc_jalur').html("<p>" + data[0].description + "</p>");
             $("#jalur_id").val(data[0].id);
+            if( $('#gender').val() == 'L' ){
+                ( data[0].posisi_ikhwan == data[0].quota_male && !data[0].is_waiting) ? $('#daftar').prop("disabled", true) : $('#daftar').prop("disabled", false);
+            }else{
+                ( data[0].posisi_akhwat == data[0].quota_female && !data[0].is_waiting ) ? $('#daftar').prop("disabled", true) : $('#daftar').prop("disabled", false);
+            }
             $("#detail_jalur").show();
         });
     }

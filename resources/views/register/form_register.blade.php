@@ -43,7 +43,7 @@
         {{--Gender--}}
         <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }} has-feedback">
             <label>Jenis Kelamin</label>
-            <select class="form-control" name="gender">
+            <select class="form-control" name="gender" id="gender">
                 <option value="L" {{(old('gender')=="L")?"selected":""}}>Laki-Laki</option>
                 <option value="P" {{(old('gender')=="P")?"selected":""}}>Perempuan</option>
             </select>
@@ -269,14 +269,26 @@
                                         <h4><strong>{{ $jalur->name }}</strong></h4>
                                         <div class="clearfix">
                                             <span class="pull-left">Quota Ikhwan :</span>
-                                            <span class="pull-right">{{ $jalur->pendaftar_ikhwan }} / {{ $jalur->quota_male }}
+                                            @if($jalur->pendaftar_ikhwan != $jalur->quota_male)
+                                                <span class="pull-right">
+                                                    {{ $jalur->pendaftar_ikhwan }} / {{ $jalur->quota_male }}
+                                                </span>
+                                            @else
+                                                <small class="pull-right label label-danger">Penuh</small>
+                                            @endif
                                         </div>
                                         <div class="progress active">
                                             <div class="progress-bar bg-red progress-bar-striped" style="width: {{ $jalur->pendaftar_ikhwan/$jalur->quota_male * 100 }}% ;"></div>
                                         </div>
                                         <div class="clearfix">
                                             <span class="pull-left">Quota Akhwat :</span>
-                                            <span class="pull-right">{{ $jalur->pendaftar_akhwat }} / {{ $jalur->quota_female }}
+                                            @if($jalur->pendaftar_akhwat != $jalur->quota_female)
+                                                <span class="pull-right">
+                                                    {{ $jalur->pendaftar_akhwat }} / {{ $jalur->quota_female }}
+                                                </span>
+                                            @else
+                                                <small class="pull-right label label-danger">Penuh</small>
+                                            @endif
                                         </div>
                                         <div class="progress active">
                                             <div class="progress-bar bg-orange progress-bar-striped" style="width: {{ $jalur->pendaftar_akhwat/$jalur->quota_female * 100 }}% ;"></div>
@@ -292,7 +304,7 @@
                 <div id="detail_jalur">
                     <div id="nama_jalur"></div><br/>
                     <div id="desc_jalur"></div><br/>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block"> Daftar Sekarang </button><br/>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" id="daftar"> Daftar Sekarang </button><br/>
                     <button type="button" class="btn btn-default btn-block" onclick="backPaket()"> Kembali ke Pilihan Paket Program </button>
                 </div>
               </div>
