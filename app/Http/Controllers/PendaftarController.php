@@ -12,21 +12,27 @@ use App\Http\Controllers\Controller;
 class PendaftarController extends Controller
 {
 	public function index(){
-		return view('user.index');
+		$data['page_title'] = "Berita";
+		return view('user.index',$data);
 	}
 	public function status(){
-		return view('user.status');
+		$data['page_title'] = "Status";
+		return view('user.status',$data);
 	}
 	public function materi(){
-		return view('user.materi');
+		$data['page_title'] = "Materi";
+		return view('user.materi',$data);
 	}
 	public function kuis(){
-		return view('user.kuis');
+		$data['page_title'] = "Kuis";
+		return view('user.kuis',$data);
 	}
 	public function nilai(){
-		return view('user.nilai');
+		$data['page_title'] = "Nilai";
+		return view('user.nilai',$data);
 	}
 	public function profile(){
-		return view('user.profile');
+		$data['page_title'] = "Profile";
+		return view('user.profile',$data);
 	}
 }

@@ -26,6 +26,8 @@
     <thead>
     <tr>
         <th>#</th>
+        <th>Kode Daftar</th>
+        <th>Jalur Daftar</th>
         <th>Nama Lengkap</th>
         <th>Nama Panggilan</th>
         <th>Tgl Lahir</th>
@@ -49,6 +51,8 @@
         @foreach($pendaftar as $i => $user)
             <tr>
                 <td>{{$i+1}}</td>
+                <td>{{$user->kode_daftar}}</td>
+                <td>{{$user->jalur->name}}</td>
                 <td>{{$user->full_name}}</td>
                 <td>{{$user->call_name}}</td>
                 <td>{{$user->birthdate}}</td>
