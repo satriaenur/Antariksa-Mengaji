@@ -44,8 +44,9 @@
     <header class="main-header">
         <!-- Logo -->
         <a href="#" class="logo">
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Antariksa</b></span>
+          <span class="logo-mini"><b>AM</b></span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>Antariksa</b>Mengaji</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -70,7 +71,7 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li><a href="{{ route('datapendaftar.index') }}"><i class="fa fa-book"></i> <span>Data Pendaftar</span></a></li>
+        <li><a href="{{ route('pendaftar.index') }}"><i class="fa fa-book"></i> <span>Data Pendaftar</span></a></li>
       </ul>
     </section>
     <!-- /.sidebar -->

@@ -74,7 +74,7 @@
                 </div>
             </div>
             <p> 
-                <a href="{{ route('datapendaftar.index') }}" type="submit" button type="button" class="btn btn-warning">Back to List</a>
+                <a href="{{ route('pendaftar.index') }}" type="submit" button type="button" class="btn btn-warning">Back to List</a>
             </p>
         </div>
     </div>

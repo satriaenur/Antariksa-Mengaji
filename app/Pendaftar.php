@@ -31,7 +31,9 @@ class Pendaftar extends Model
         'pekerjaan',
         'jalur_id',
         'is_waiting_list',
-        'user_id'
+        'user_id',
+        'generasi',
+        'kode_daftar'
     ];
 
     public function city()

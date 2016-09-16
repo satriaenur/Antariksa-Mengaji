@@ -11,7 +11,12 @@ class Jalur extends Model
 		'code',
 		'quota_male',
 		'quota_female',
-		'generation'
+		'generation_ikhwan',
+		'generation_akhwat',
+		'posisi_ikhwan',
+		'posisi_akhwat',
+		'pendaftar_ikhwan',
+		'pendaftar_akhwat'
 	];
 
 	public function pendaftar(){

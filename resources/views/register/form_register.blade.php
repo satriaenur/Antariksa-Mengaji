@@ -260,19 +260,34 @@
               </div>
               <div class="modal-body">
                 <div id="pilih_jalur">
-                @foreach($jalurs as $jalur)
-                    <center>
-                        <button type="button" class="btn btn-default btn-lg" onclick="pilihJalur( {{$jalur->id}} )"><h3>{{$jalur->name}}</h3><br/><br/><center>
-                            @if($jalur->is_waiting)
-                                <b>Sisa Quota</b><br/>
-                                Ikhwan : {{ ( $jalur->quota_male > $jalur->posisi_ikhwan )?$jalur->quota_male - $jalur->posisi_ikhwan:"0" }} | Akhwat : {{ ( $jalur->quota_female > $jalur->posisi_akhwan )?$jalur->quota_female - $jalur->posisi_akhwat:"0" }}
-                            @else
-                                <b>Jumlah Pendaftar</b><br/>
-                                Ikhwan : {{ $jalur->posisi_ikhwan }} | Akhwat : {{ $jalur->posisi_akhwat }}
-                            @endif
-                        </center></button><br/><br/>
-                    </center>
-                @endforeach
+                <div class="container-fluid">
+                    <div class="row">
+                        @foreach($jalurs as $jalur)
+                            <div class="col-lg-6 col-xs-12">
+                                <div class="small-box bg-green">
+                                    <div class="inner">
+                                        <h4><strong>{{ $jalur->name }}</strong></h4>
+                                        <div class="clearfix">
+                                            <span class="pull-left">Quota Ikhwan :</span>
+                                            <span class="pull-right">{{ $jalur->pendaftar_ikhwan }} / {{ $jalur->quota_male }}
+                                        </div>
+                                        <div class="progress active">
+                                            <div class="progress-bar bg-red progress-bar-striped" style="width: {{ $jalur->pendaftar_ikhwan/$jalur->quota_male * 100 }}% ;"></div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <span class="pull-left">Quota Akhwat :</span>
+                                            <span class="pull-right">{{ $jalur->pendaftar_akhwat }} / {{ $jalur->quota_female }}
+                                        </div>
+                                        <div class="progress active">
+                                            <div class="progress-bar bg-orange progress-bar-striped" style="width: {{ $jalur->pendaftar_akhwat/$jalur->quota_female * 100 }}% ;"></div>
+                                        </div>
+                                    </div>
+                                <a href="#" onclick="pilihJalur( {{ $jalur->id }} )" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
                 </div>
                 <div id="detail_jalur">
                     <div id="nama_jalur"></div><br/>

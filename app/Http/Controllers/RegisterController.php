@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Pendaftar;
@@ -42,24 +41,29 @@ class RegisterController extends Controller
         $dataUser['name'] = $dataPendaftar['call_name'];
         $dataUser['password'] = bcrypt($dataUser['password']);
 
+        $jalur = $this->jalur->find($dataPendaftar['jalur_id']);
+        if ($dataPendaftar['gender'] == "L") {
+            $jalur->posisi_ikhwan = $jalur->posisi_ikhwan + 1;
+            $jalur->pendaftar_ikhwan = $jalur->pendaftar_ikhwan + 1;
+            $dataPendaftar["generasi"] = $jalur->generation_ikhwan;
+            $nomorurut = $jalur->posisi_ikhwan;
+        }else{
+            $jalur->posisi_akhwat = $jalur->posisi_akhwat + 1;
+            $jalur->pendaftar_akhwat = $jalur->pendaftar_akhwat + 1;
+            $dataPendaftar["generasi"] = $jalur->generation_akhwat;
+            $nomorurut = $jalur->posisi_akhwat;
+        }
+
+        $dataPendaftar["kode_daftar"] = $nomorurut.$dataPendaftar['gender'].$jalur->code;
         $pendaftar = $this->pendaftar->create($dataPendaftar);
         $user = $this->user->create($dataUser);
         $pendaftar->user_id = $user->id;
         $pendaftar->save();
 
-        $jalur = $this->jalur->find($dataPendaftar['jalur_id']);
-        if ($dataPendaftar['gender'] == "L") {
-            $jalur->posisi_ikhwan = $jalur->posisi_ikhwan + 1;
-            $nomorurut = $jalur->posisi_ikhwan;
-        }else{
-            $jalur->posisi_akhwat = $jalur->posisi_akhwat + 1;
-            $nomorurut = $jalur->posisi_akhwat;
-        }
         $jalur->save();
 
-
         $asalkota= $pendaftar->city;
-        $kodejalur = $nomorurut.$dataPendaftar['gender'].". ".$jalur->code." ".$pendaftar->full_name." ".$asalkota->title;
+        $kodejalur = $dataPendaftar["kode_daftar"]." ".$pendaftar->full_name." ".$asalkota->title;
         $tanggalpendaftaran = $pendaftar->created_at;
         $result = [
             "kode" => $kodejalur,

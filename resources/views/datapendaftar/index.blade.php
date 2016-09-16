@@ -35,6 +35,7 @@
                             <th>Pekerjaan</th>
                             <th>Pendidikan</th>
                             <th>Usia</th>
+                            <th>Angkatan</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -43,7 +44,7 @@
                             <tr>
                                 <td>{{$key+1}}</td>
                                 <td>
-                                    {{$key+1}} {{$user->gender}} {{$user->jalur_id}} {{$user->full_name}} {{$user->city->title}} 
+                                    {{ $user->kode_daftar }}
                                 </td>
                                 <td>
                                     {{$user->full_name}}
@@ -64,7 +65,10 @@
                                     {{ date("Y") - date("Y",strtotime($user->birthdate)) }}
                                 </td>
                                 <td>
-                                    <a href='#' data-toggle='modal' >Edit</a> | <a href="{{route('datapendaftar.detail', $user->id) }}" >Detail</a>
+                                    {{ $user->generasi }}
+                                </td>
+                                <td>
+                                    <a href="{{route('pendaftar.edit', $user->id) }}" data-toggle='modal' >Edit</a> | <a href="{{route('pendaftar.detail', $user->id) }}" >Detail</a>
                                 </td>
                             </tr>
                         @endforeach

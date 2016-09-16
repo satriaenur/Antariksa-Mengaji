@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Pendaftar;
 use App\Http\Requests;
 use App\User;
+use Validator;
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -15,6 +17,15 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
         $this->pendaftar = $pendaftar;
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255',
+            'email' => 'required',
+            'phone' => 'required',
+        ]);
     }
 
     public function index()
@@ -86,5 +97,34 @@ class AdminController extends Controller
             'user','page_title'
         );
         return view('datapendaftar.detail',$compact);
+    }
+
+    public function edit($id)
+    {
+        $page_title = 'Pendaftar Antariksa';
+        $user = Pendaftar::findOrFail($id);
+        $account = User::findOrFail($user->user_id);
+
+        $compact = compact(
+            'user','page_title','account'
+        );
+        return view('datapendaftar.edit',$compact);
+    }
+
+    public function update($id, RegisterRequest $request)
+    {
+        $user = Pendaftar::findOrFail($id);
+        $input = $request->all();
+        $input['whatsapp'] = isset($input['whatsapp']) ? true : false;
+        $input['telegram'] = isset($input['telegram']) ? true : false;
+
+        $account = User::findOrFail($user->user_id);
+        $dataAccount = $request->only(['email','phone','password']);
+        $dataAccount['name'] = $input['call_name'];
+        
+
+        $account->fill($dataAccount)->save();
+        $user->fill($input)->save();
+        return redirect()->route('pendaftar.index');
     }
 }

@@ -39,21 +39,25 @@ $this::group(['middleware' => ['web']], function () {
     $this->get('/data/jalur', ['as' => 'data.jalurdetail', 'uses' => 'JalurController@getDetailJalur']);
 
     // admin dashboard
-    $this->group(array('before' => 'auth'), function(){
+    $this->group(['middleware' => ['auth']], function(){
         $this->get('/home', ['as' => 'home.index', 'uses'=>'HomeController@index']);
         $this->get('/admin', function(){
            return redirect()->route('admin.index');
         });
-        $this->get('/admin/pendaftar', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
-        $this->get('/datapendaftar',['as' => 'datapendaftar.index', 'uses' => 'AdminController@data']);
-        $this->get('/datapendaftar/detail/{id}',['as' => 'datapendaftar.detail', 'uses' => 'AdminController@detail']);
+        $this->get('/admin/dashboard', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
+        $this->get('/admin/pendaftar',['as' => 'pendaftar.index', 'uses' => 'AdminController@data']);
+        $this->get('/admin/pendaftar/edit/{id}',['as' => 'pendaftar.edit', 'uses' => 'AdminController@edit']);
+        $this->post('/admin/pendaftar/edit/{id}', ['as' => 'pendaftar.update', 'uses' => 'AdminController@update']);
+        $this->get('/admin/pendaftar/detail/{id}',['as' => 'pendaftar.detail', 'uses' => 'AdminController@detail']);
         $this->get('/admin/pendaftar/export/{gender}', ['as' => 'admin.pendaftar.export', 'uses' => 'AdminController@exportRekap']);
     });
 
     // User Dashboard
-    $this->group(array('before'=>'userAuth'),function(){
-        $this->get('/user',['as' => 'user.index', 'uses' => 'PendaftarController@index']);
-        $this->get('/user/berita',['as' => 'user.berita', 'uses' => 'PendaftarController@index']);
+    $this->group(['middleware' => ['userAuth']],function(){
+        $this->get('/user',function(){
+            return redirect()->route('user.index');
+        });
+        $this->get('/user/berita',['as' => 'user.index', 'uses' => 'PendaftarController@index']);
         $this->get('/user/status',['as' => 'user.status', 'uses' => 'PendaftarController@status']);
         $this->get('/user/materi',['as' => 'user.materi', 'uses' => 'PendaftarController@materi']);
         $this->get('/user/kuis',['as' => 'user.kuis', 'uses' => 'PendaftarController@kuis']);

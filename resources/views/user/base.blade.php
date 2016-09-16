@@ -43,7 +43,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="{{ route('user.index') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>AM</b></span>
       <!-- logo for regular state and mobile devices -->
@@ -62,13 +62,12 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">{{ Auth::user()->pendaftar[0]->call_name }}</span>
             </a>
             <ul class="dropdown-menu">
               <li class="user-header">
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  {{ Auth::user()->pendaftar[0]->full_name }}
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -94,7 +93,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="{{(Request::url() == route('user.index') || Request::url() == route('user.berita'))?'active':''}}">
+        <li class="{{(Request::url() == route('user.index'))?'active':''}}">
           <a href="{{route('user.index')}}">
             <i class="glyphicon glyphicon-info-sign"></i> <span>Berita</span>
           </a>
