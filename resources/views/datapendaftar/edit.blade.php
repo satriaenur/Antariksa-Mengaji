@@ -1,4 +1,4 @@
-@extends('datapendaftar.base')
+@extends('admin.base')
 @section('css')
     <style>
         td table tr td { margin: 1px;}

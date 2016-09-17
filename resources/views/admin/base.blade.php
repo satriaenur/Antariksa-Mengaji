@@ -26,6 +26,8 @@
     <!-- DataTables -->
     <link href="{{asset('bower_components/AdminLTE/plugins/datatables/jquery.dataTables.min.css')}}" rel="stylesheet">
 
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+
     @yield('css')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -64,12 +66,14 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">Menu</li>
-        <li class="active treeview">
+        <li class="{{(Request::url() == route('admin.index'))?'active':''}}">
           <a href="{{ route('admin.index') }}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li><a href="{{ route('pendaftar.index') }}"><i class="fa fa-book"></i> <span>Data Pendaftar</span></a></li>
+        <li class="{{( Request::segment(2) == 'pendaftar' )?'active':''}}">
+            <a href="{{ route('pendaftar.index') }}"><i class="fa fa-book"></i> <span>Data Pendaftar</span></a>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -100,6 +104,40 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
     ga('create', 'UA-73406931-1', 'auto');
     ga('send', 'pageview');
+
+
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
+
+    $(".datepicker").datepicker({
+        format: 'yyyy-mm-dd',
+    });
+
+    $("#select-province").on("change", function(e){
+        var data = { province_id: $(this).val() };
+        update_city_dropdown(data,1);
+    });
+
+    function update_city_dropdown(data,id){
+        $.ajax({
+            url: "{{ route('data.cities') }}",
+            type: 'GET',
+            data: data,
+        })
+        .done(function(cities) {
+            $('#select-city').empty();
+            for(i in cities) {
+                kata = (cities[i].id == id)?"selected":"";
+                $('#select-city').append('<option value="' + cities[i].id + '" '+ kata +' >' + cities[i].title + '</option>');
+            }
+        });
+    }
+
 </script>
 </body>
 </html>
