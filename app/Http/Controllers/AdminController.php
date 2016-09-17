@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Pendaftar;
 use App\Http\Requests;
 use App\User;
+use App\Province;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
@@ -39,10 +41,17 @@ class AdminController extends Controller
         $count_android = $this->pendaftar->where('platform', 'android')->count();
         $count_ios = $this->pendaftar->where('platform', 'ios')->count();
         $count_bb = $this->pendaftar->where('platform', 'blackberry')->count();
+        $count_gender = $this->pendaftar->groupBy('gender')->select('gender',DB::raw('count(*) as total'))->get();
+        $count_pekerjaan = $this->pendaftar->groupBy('pekerjaan')->select('pekerjaan',DB::raw('count(*) as total'))->get();
+        $count_pendidikan = $this->pendaftar->groupBy('pendidikan')->select('pendidikan',DB::raw('count(*) as total'))->get();
+        $count_provinsi = $this->pendaftar->groupBy('province_id')->select('province_id',DB::raw('count(*) as total'))->get();
+        foreach ($count_provinsi as $provinsi) {
+            $provinsi->province_id = Province::find($provinsi->province_id);
+        }
 
         $compact = compact(
             'users', 'page_title', 'count_pendaftar', 'count_telegram', 'count_whatsapp',
-            'count_android', 'count_ios', 'count_bb'
+            'count_android', 'count_ios', 'count_bb', 'count_gender', 'count_pekerjaan', 'count_provinsi', 'count_pendidikan'
         );
 
         return view('admin.index', $compact);

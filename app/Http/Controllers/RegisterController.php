@@ -53,7 +53,7 @@ class RegisterController extends Controller
             $dataPendaftar["generasi"] = $jalur->generation_akhwat;
             $nomorurut = $jalur->posisi_akhwat;
         }
-
+        $dataPendaftar["pekerjaan"] = ucfirst($dataPendaftar["pekerjaan"]);
         $dataPendaftar["kode_daftar"] = $nomorurut.$dataPendaftar['gender'].$jalur->code;
         $pendaftar = $this->pendaftar->create($dataPendaftar);
         $user = $this->user->create($dataUser);
