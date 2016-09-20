@@ -80,7 +80,15 @@
         {{--Pekerjaan--}}
         <div class="form-group{{ $errors->has('pekerjaan') ? ' has-error' : '' }} has-feedback">
             <label>Pekerjaan</label>
-            <input type="text" class="form-control" placeholder="" name="pekerjaan" value="{{ old('pekerjaan') }}">
+            <select class="form-control" name="pekerjaan">
+                <option value="Karyawan" {{(old('pekerjaan')=="Karyawan")?"selected":""}}>Karyawan</option>
+                <option value="Wirausaha" {{(old('pekerjaan')=="Wirausaha")?"selected":""}}>Wirausaha</option>
+                <option value="PNS" {{(old('pekerjaan')=="PNS")?"selected":""}}>PNS</option>
+                <option value="Guru" {{(old('pekerjaan')=="Guru")?"selected":""}}>Guru</option>
+                <option value="Pelajar" {{(old('pekerjaan')=="Pelajar")?"selected":""}}>Pelajar</option>
+                <option value="Ibu Rumah Tangga" {{(old('pekerjaan')=="Ibu Rumah Tangga")?"selected":""}}>Ibu Rumah Tangga</option>
+                <option value="Lainnya" {{(old('pekerjaan')=="Lainnya")?"selected":""}}>Lainnya</option>
+            </select>
             @if ($errors->has('pekerjaan'))
                 <span class="help-block"><strong>{{ $errors->first('pekerjaan') }}</strong></span>
             @endif

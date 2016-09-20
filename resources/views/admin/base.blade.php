@@ -95,6 +95,7 @@
 <script src="{{asset('bower_components/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
 <script src="{{asset('bower_components/AdminLTE/plugins/fastclick/fastclick.min.js')}}"></script>
 <script src="{{asset('bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('bower_components/AdminLTE/plugins/iCheck/icheck.min.js')}}"></script>
 <script src="{{asset('bower_components/AdminLTE/dist/js/app.min.js')}}"></script>
 @yield('js')
 <script>

@@ -84,7 +84,15 @@
                         {{--Pekerjaan--}}
                         <div class="form-group{{ $errors->has('pekerjaan') ? ' has-error' : '' }} has-feedback">
                             <label>Pekerjaan</label>
-                            <input type="text" class="form-control" placeholder="" name="pekerjaan" value="{{ (old('pekerjaan'))=="" ? $user->pekerjaan : old('pekerjaan') }}">
+                            <select class="form-control" name="pekerjaan">
+                                <option value="Karyawan" {{(old('pekerjaan') or $user->pekerjaan =="Karyawan")?"selected":""}}>Karyawan</option>
+                                <option value="Wirausaha" {{(old('pekerjaan') or $user->pekerjaan =="Wirausaha")?"selected":""}}>Wirausaha</option>
+                                <option value="PNS" {{(old('pekerjaan') or $user->pekerjaan =="PNS")?"selected":""}}>PNS</option>
+                                <option value="Guru" {{(old('pekerjaan') or $user->pekerjaan =="Guru")?"selected":""}}>Guru</option>
+                                <option value="Pelajar" {{(old('pekerjaan') or $user->pekerjaan =="Pelajar")?"selected":""}}>Pelajar</option>
+                                <option value="Ibu Rumah Tangga" {{(old('pekerjaan') or $user->pekerjaan =="Ibu Rumah Tangga")?"selected":""}}>Ibu Rumah Tangga</option>
+                                <option value="Lainnya" {{(old('pekerjaan') or $user->pekerjaan =="Lainnya")?"selected":""}}>Lainnya</option>
+                            </select>
                             @if ($errors->has('pekerjaan'))
                                 <span class="help-block"><strong>{{ $errors->first('pekerjaan') }}</strong></span>
                             @endif
